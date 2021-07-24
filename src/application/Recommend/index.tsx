@@ -1,7 +1,7 @@
 import React from "react";
 import Slider from "../../components/slider";
 import RecommendList from "../../components/recommend-list";
-import Scroll from "../../components/scroll";
+import Scroll from "../../baseUI/scroll";
 import { Content } from "./style";
 
 function Recommend() {
@@ -24,7 +24,7 @@ function Recommend() {
 
   return (
     <Content>
-      <Scroll className="list">
+      <Scroll>
         <div>
           <Slider bannerList={bannerList}></Slider>
           <RecommendList recommendList={recommendList}></RecommendList>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Swiper, { Pagination, Autoplay } from "swiper";
 import { SliderContainer } from "./style";
 import "swiper/swiper-bundle.min.css";
+import { SliderProps } from "../type";
 
 Swiper.use([Pagination, Autoplay]);
 

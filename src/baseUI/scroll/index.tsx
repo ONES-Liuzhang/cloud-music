@@ -9,24 +9,23 @@ import React, {
 import BetterScroll from "better-scroll";
 import { ScrollContainer } from "./style";
 import { ScrollProps, ScrollPosition } from "../type";
-/**
- * Scroll.propTypes = {
- *  direction: propTypes.oneOf(['vertical', 'horizental']),  // 滚动方向
- *  click: propTypes.bool, // 是否支持点击
- *  refresh: propTypes.bool, // 是否支持刷新
- *  onScroll: propTypes.func, // 滚动事件
- *  pullUp: propTypes.func,   // 上拉加载逻辑
- *  pullDown: propTypes.func, // 下拉加载逻辑
- *  pullUpLoading: propTypes.bool, // 是否显示上拉 loading 动画
- *  pullDownLoading: propTypes.bool, // 是否显示下拉 loading 动画
- *  bounceTop: propTypes.bool, // 是否支持向上吸顶
- *  bounceDown: propTypes.bool, // 是否支持下拉吸底
- * }
- */
+
+// Scroll.propTypes = {
+//   direction: PropTypes.oneOf(["vertical", "horizental"]), // 滚动方向
+//   click: PropTypes.bool, // 是否支持点击
+//   refresh: PropTypes.bool, // 是否支持刷新
+//   onScroll: PropTypes.func, // 滚动事件
+//   pullUp: PropTypes.func, // 上拉加载逻辑
+//   pullDown: PropTypes.func, // 下拉加载逻辑
+//   pullUpLoading: PropTypes.bool, // 是否显示上拉 loading 动画
+//   pullDownLoading: PropTypes.bool, // 是否显示下拉 loading 动画
+//   bounceTop: PropTypes.bool, // 是否支持向上吸顶
+//   bounceDown: PropTypes.bool, // 是否支持下拉吸底
+// };
 
 const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
   const [bScroll, setBScroll] = useState<null | BetterScroll>();
-  const scrollContainerRef = useRef<undefined | HTMLElement>();
+  const scrollContainerRef = useRef<null | HTMLDivElement>();
 
   const {
     direction,
@@ -36,14 +35,16 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
     bounceTop,
     pullDownLoading,
     pullUpLoading,
-    children,
   } = props;
   const { onScroll, pullDown, pullUp } = props;
 
   // 初始化
   useEffect(() => {
-    if (scrollContainerRef.current) {
-      const scroll = new BetterScroll(scrollContainerRef.current, {
+    console.log(scrollContainerRef.current?.firstElementChild?.clientHeight);
+    console.log(scrollContainerRef.current?.clientHeight);
+    const scroll = new BetterScroll(
+      scrollContainerRef.current as HTMLDivElement,
+      {
         scrollX: direction === "horizental",
         scrollY: direction === "vertical",
         click: click,
@@ -52,17 +53,24 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
           top: bounceTop,
           bottom: bounceDown,
         },
-      });
-      setBScroll(scroll);
-      return () => {
-        setBScroll(null);
-      };
-    }
+      }
+    );
+    setBScroll(scroll);
+    console.log(props.children, scroll);
+    return () => {
+      setBScroll(null);
+    };
+    //eslint-disable-next-line
   }, []);
 
   // 每次渲染都刷新实例，防止滚动失效
   useEffect(() => {
     if (refresh && bScroll) {
+      console.log(
+        "content:",
+        scrollContainerRef.current?.firstElementChild?.clientHeight
+      );
+      console.log("wrapper", scrollContainerRef.current?.clientHeight);
       bScroll.refresh();
     }
   });
@@ -121,11 +129,13 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
   }));
 
   // props.children 类似Vue中的$slot
-  return <ScrollContainer ref={scrollContainerRef}>{children}</ScrollContainer>;
+  return (
+    <ScrollContainer ref={scrollContainerRef}>{props.children}</ScrollContainer>
+  );
 });
 
 Scroll.defaultProps = {
-  direction: "horizental",
+  direction: "vertical",
   click: true,
   refresh: true,
   onScroll: null,
@@ -136,4 +146,5 @@ Scroll.defaultProps = {
   bounceTop: true,
   bounceDown: true,
 };
+
 export default React.memo(Scroll);

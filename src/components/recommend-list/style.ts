@@ -22,6 +22,8 @@ export const ListItem = styled.div`
 
   .img_wrapper {
     position: relative;
+    height: 0px;
+    padding-bottom: 100%;
     .decorate {
       position: absolute;
       height: 35px;
@@ -40,6 +42,7 @@ export const ListItem = styled.div`
       color: ${style["font-color-light"]};
     }
     img {
+      position: absolute;
       border-radius: 3px;
       width: 100%;
       height: 100%;

@@ -3,11 +3,12 @@ import { renderRoutes } from "react-router-config";
 import { Top, Tab, TabItem } from "./style";
 import { NavLink } from "react-router-dom";
 import { PropsWithRoute } from "../../types/global";
+import { HomeProps } from "../type";
 
 function Home(props: PropsWithRoute<HomeProps>) {
   const { route } = props;
   return (
-    <div>
+    <div className="home">
       <Top>
         <span className="iconfont menu">&#xe65c;</span>
         <span className="title">My App</span>
@@ -30,7 +31,7 @@ function Home(props: PropsWithRoute<HomeProps>) {
           </TabItem>
         </NavLink>
       </Tab>
-      {renderRoutes(route.routes)}
+      {renderRoutes(route?.routes)}
     </div>
   );
 }
