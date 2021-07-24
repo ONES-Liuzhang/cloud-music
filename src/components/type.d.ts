@@ -1,18 +1,44 @@
-interface BannerInfo {
+import { ReactElement } from "react";
+export interface PropsWithClassName {
+  className?: string | undefined;
+}
+
+export interface BannerInfo {
   imageUrl: string;
 }
 
-interface RecommendInfo {
+export interface RecommendInfo {
   id: number;
   picUrl: string;
   playCount: number;
   name: string;
 }
 
-interface SliderProps {
+export interface SliderProps {
   bannerList: Array<BannerInfo>;
 }
 
-interface RecommendListProps {
+export interface RecommendListProps {
   recommendList: Array<RecommendInfo>;
+}
+
+type Direction = "horizental" | "vertical";
+
+export interface ScrollPosition {
+  x: number;
+  y: number;
+}
+
+export interface ScrollProps extends PropsWithClassName {
+  direction?: Direction;
+  click?: boolean;
+  refresh?: boolean;
+  onScroll?: null | ((pos?: ScrollPosition) => void);
+  pullUp?: null | ((pos?: ScrollPosition) => void);
+  pullDown?: null | ((pos?: ScrollPosition, duration?: number) => void);
+  pullUpLoading?: boolean;
+  pullDownLoading?: boolean;
+  bounceTop?: boolean;
+  bounceDown?: boolean;
+  children?: ReactElement;
 }

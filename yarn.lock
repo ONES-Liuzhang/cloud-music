@@ -1247,6 +1247,74 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@better-scroll/core@^2.0.0-beta.10", "@better-scroll/core@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.nlark.com/@better-scroll/core/download/@better-scroll/core-2.4.1.tgz#1f67a9cfe6738f870be5b90b13aafcc188a01e3b"
+  integrity sha1-H2epz+Zzj4cL5bkLE6r8wYigHjs=
+  dependencies:
+    "@better-scroll/shared-utils" "^2.4.1"
+
+"@better-scroll/mouse-wheel@^2.0.0-beta.10":
+  version "2.4.1"
+  resolved "https://registry.nlark.com/@better-scroll/mouse-wheel/download/@better-scroll/mouse-wheel-2.4.1.tgz#3c77e1b87d2faaf7e3a7d6a3c7072ad8bcacf173"
+  integrity sha1-PHfhuH0vqvfjp9ajxwcq2Lys8XM=
+  dependencies:
+    "@better-scroll/core" "^2.4.1"
+
+"@better-scroll/observe-dom@^2.0.0-beta.10":
+  version "2.4.1"
+  resolved "https://registry.nlark.com/@better-scroll/observe-dom/download/@better-scroll/observe-dom-2.4.1.tgz#d918c1fc2de4e3fa32b302a63c45c9433cf41a24"
+  integrity sha1-2RjB/C3k4/oyswKmPEXJQzz0GiQ=
+  dependencies:
+    "@better-scroll/core" "^2.4.1"
+
+"@better-scroll/pull-down@^2.0.0-beta.10":
+  version "2.4.1"
+  resolved "https://registry.nlark.com/@better-scroll/pull-down/download/@better-scroll/pull-down-2.4.1.tgz#47989425ca07908a2e77fb5024026a2117ffd87c"
+  integrity sha1-R5iUJcoHkIoud/tQJAJqIRf/2Hw=
+  dependencies:
+    "@better-scroll/core" "^2.4.1"
+
+"@better-scroll/pull-up@^2.0.0-beta.10":
+  version "2.4.1"
+  resolved "https://registry.nlark.com/@better-scroll/pull-up/download/@better-scroll/pull-up-2.4.1.tgz?cache=0&sync_timestamp=1624516864637&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40better-scroll%2Fpull-up%2Fdownload%2F%40better-scroll%2Fpull-up-2.4.1.tgz#7ee99c29582d069255036b051d25e4b81dc88348"
+  integrity sha1-fumcKVgtBpJVA2sFHSXkuB3Ig0g=
+  dependencies:
+    "@better-scroll/core" "^2.4.1"
+
+"@better-scroll/scroll-bar@^2.0.0-beta.10":
+  version "2.4.1"
+  resolved "https://registry.nlark.com/@better-scroll/scroll-bar/download/@better-scroll/scroll-bar-2.4.1.tgz#89251ed5d014213e54ecf7e692398959e4c57dae"
+  integrity sha1-iSUe1dAUIT5U7PfmkjmJWeTFfa4=
+  dependencies:
+    "@better-scroll/core" "^2.4.1"
+
+"@better-scroll/shared-utils@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.nlark.com/@better-scroll/shared-utils/download/@better-scroll/shared-utils-2.4.1.tgz#b5e4e751a023180f1123d2c3773c75a863f71f77"
+  integrity sha1-teTnUaAjGA8RI9LDdzx1qGP3H3c=
+
+"@better-scroll/slide@^2.0.0-beta.10":
+  version "2.4.1"
+  resolved "https://registry.nlark.com/@better-scroll/slide/download/@better-scroll/slide-2.4.1.tgz#9086a5c9f20e76c275d940587c422547abb5b3e9"
+  integrity sha1-kIalyfIOdsJ12UBYfEIlR6u1s+k=
+  dependencies:
+    "@better-scroll/core" "^2.4.1"
+
+"@better-scroll/wheel@^2.0.0-beta.10":
+  version "2.4.1"
+  resolved "https://registry.nlark.com/@better-scroll/wheel/download/@better-scroll/wheel-2.4.1.tgz#877524562e17863f5fb2b49bd80c144d295dbccd"
+  integrity sha1-h3UkVi4Xhj9fsrSb2AwUTSldvM0=
+  dependencies:
+    "@better-scroll/core" "^2.4.1"
+
+"@better-scroll/zoom@^2.0.0-beta.10":
+  version "2.4.1"
+  resolved "https://registry.nlark.com/@better-scroll/zoom/download/@better-scroll/zoom-2.4.1.tgz?cache=0&sync_timestamp=1624516864968&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40better-scroll%2Fzoom%2Fdownload%2F%40better-scroll%2Fzoom-2.4.1.tgz#6a304033c70035cd63cbf3488fe3f30576a2dda3"
+  integrity sha1-ajBAM8cANc1jy/NIj+PzBXai3aM=
+  dependencies:
+    "@better-scroll/core" "^2.4.1"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -2914,6 +2982,21 @@ bcrypt-pbkdf@^1.0.0:
   integrity sha1-pDAdOJtqQ/m2f/PKEaP2Y342Dp4=
   dependencies:
     tweetnacl "^0.14.3"
+
+better-scroll@^2.0.0-beta.10:
+  version "2.0.0-beta.10"
+  resolved "https://registry.nlark.com/better-scroll/download/better-scroll-2.0.0-beta.10.tgz#4c7b9dbc3e690d98fd4d82a190cb74a65dc5c6df"
+  integrity sha1-THudvD5pDZj9TYKhkMt0pl3Fxt8=
+  dependencies:
+    "@better-scroll/core" "^2.0.0-beta.10"
+    "@better-scroll/mouse-wheel" "^2.0.0-beta.10"
+    "@better-scroll/observe-dom" "^2.0.0-beta.10"
+    "@better-scroll/pull-down" "^2.0.0-beta.10"
+    "@better-scroll/pull-up" "^2.0.0-beta.10"
+    "@better-scroll/scroll-bar" "^2.0.0-beta.10"
+    "@better-scroll/slide" "^2.0.0-beta.10"
+    "@better-scroll/wheel" "^2.0.0-beta.10"
+    "@better-scroll/zoom" "^2.0.0-beta.10"
 
 bfj@^7.0.2:
   version "7.0.2"

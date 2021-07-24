@@ -1,7 +1,6 @@
 import React from "react";
 import { List, ListWapper, ListItem } from "./style";
 import { getCount } from "../../api/utils";
-
 function RecommendList(props: RecommendListProps) {
   const { recommendList } = props;
   return (
@@ -30,4 +29,4 @@ function RecommendList(props: RecommendListProps) {
   );
 }
 
-export default React.memo(RecommendList);
+export default React.memo<RecommendListProps>(RecommendList);
