@@ -15,7 +15,7 @@ export const changeRecommendList = (data: RecommendList) => ({
   data: fromJS(data) as any,
 });
 
-export const getBanner = () => {
+export const getBannerList = () => {
   return (dispatch: any) => {
     getBannerRequest().then(
       (data) => {

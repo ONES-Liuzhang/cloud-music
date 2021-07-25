@@ -67,11 +67,10 @@ export type BannerList = Array<BannerData>;
 
 export type RecommendList = Array<RecommendData>;
 
-export interface RecommendState {
+interface RecommendStateJs {
   [RecommendStateKey.BANNER_LIST]: BannerList;
   [RecommendStateKey.RECOMMEND_LIST]: RecommendList;
 }
 
-export const CHANGE_BANNER = RecommendActionsType.CHANGE_BANNER;
-
-export const CHANGE_RECOMMEND_LIST = RecommendActionsType.CHANGE_RECOMMEND_LIST;
+/** state保存的是immutable包裹的数据 */
+export type RecommendState = ObjWithImmutable<RecommendStateJs>;
