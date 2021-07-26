@@ -1,9 +1,4 @@
 import axios from "axios";
-
-interface ResponseData<T> {
-  data: T;
-}
-
 const baseUrl = "http://localhost:3300";
 
 const axiosInstance = axios.create({

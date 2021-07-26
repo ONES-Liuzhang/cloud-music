@@ -3,4 +3,9 @@ type ObjWithImmutable<P> = P & {
   toJS: () => P;
   get: (k: keyof P) => P[k];
   set: (k: keyof P, value: P[k]) => p[k];
+  getIn: <K = any>(
+    collection?: any,
+    keyPath?: Iterable<any>,
+    notSetValue?: any
+  ) => P[K];
 };
