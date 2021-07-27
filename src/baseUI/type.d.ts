@@ -19,3 +19,10 @@ export interface ScrollProps {
   bounceDown?: boolean;
   children?: ReactNode;
 }
+
+export interface HorizenProps<T = any> {
+  list: Array<T>;
+  title: string;
+  oldVal: string;
+  handleClick?: (key?: any) => void;
+}

@@ -40,8 +40,6 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
 
   // 初始化
   useEffect(() => {
-    console.log(scrollContainerRef.current?.firstElementChild?.clientHeight);
-    console.log(scrollContainerRef.current?.clientHeight);
     const scroll = new BetterScroll(
       scrollContainerRef.current as HTMLDivElement,
       {
@@ -66,11 +64,6 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
   // 每次渲染都刷新实例，防止滚动失效
   useEffect(() => {
     if (refresh && bScroll) {
-      console.log(
-        "content:",
-        scrollContainerRef.current?.firstElementChild?.clientHeight
-      );
-      console.log("wrapper", scrollContainerRef.current?.clientHeight);
       bScroll.refresh();
     }
   });
