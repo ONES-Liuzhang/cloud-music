@@ -5,7 +5,7 @@ export const List = styled.div`
   display: inline-flex;
   white-space: nowrap;
   align-items: center;
-  height: 60px;
+  height: 30px;
   > span:first-of-type {
     padding: 5px 0px;
     margin-right: 5px;
@@ -21,6 +21,6 @@ export const ListItem = styled.span`
   border-radius: 10px;
   &.selected {
     color: ${style["theme-color"]};
-    border: 1p solid ${style["theme-color"]};
+    border: 1px solid ${style["theme-color"]};
   }
 `;
