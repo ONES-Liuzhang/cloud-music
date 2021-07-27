@@ -2,18 +2,21 @@
 export enum RecommendActionsType {
   CHANGE_BANNER = "recommend/change_banner",
   CHANGE_RECOMMEND_LIST = "recommend/change_recommend_list",
+  CHANGE_ENTER_LOADING = "recommend/change_loading",
 }
 
 /** state中的key */
 export enum RecommendStateKey {
   BANNER_LIST = "bannerList",
   RECOMMEND_LIST = "recommendList",
+  ENTER_LOADING = "enterLoading",
 }
 
 /** 建立actions type 和 state key 的关联 */
 export interface RecommendStateMap {
   [RecommendActionsType.CHANGE_BANNER]: RecommendStateKey.BANNER_LIST;
   [RecommendActionsType.CHANGE_RECOMMEND_LIST]: RecommendStateKey.RECOMMEND_LIST;
+  [RecommendActionsType.CHANGE_ENTER_LOADING]: RecommendStateKey.ENTER_LOADING;
 }
 
 export interface RecommendActions<T extends RecommendActionsType> {
@@ -70,6 +73,7 @@ export type RecommendList = Array<RecommendData>;
 interface RecommendStateJs {
   [RecommendStateKey.BANNER_LIST]: BannerList;
   [RecommendStateKey.RECOMMEND_LIST]: RecommendList;
+  [RecommendStateKey.ENTER_LOADING]: boolean;
 }
 
 /** state保存的是immutable包裹的数据 */

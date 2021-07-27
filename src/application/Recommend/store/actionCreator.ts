@@ -15,6 +15,11 @@ export const changeRecommendList = (data: RecommendList) => ({
   data: fromJS(data) as any,
 });
 
+export const changeEnterLoader = (data: boolean) => ({
+  type: RecommendActionsType.CHANGE_ENTER_LOADING,
+  data: data,
+});
+
 export const getBannerList = () => {
   return (dispatch: any) => {
     getBannerRequest().then(
@@ -32,6 +37,7 @@ export const getRecommendList = () => {
   return (dispatch: any) => {
     getRecommendListRequest().then((data) => {
       dispatch(changeRecommendList(data.result));
+      dispatch(changeEnterLoader(false));
     });
   };
 };

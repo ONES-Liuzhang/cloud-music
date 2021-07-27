@@ -8,4 +8,5 @@ type ObjWithImmutable<P> = P & {
     keyPath?: Iterable<any>,
     notSetValue?: any
   ) => P[K];
+  size: number;
 };

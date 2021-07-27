@@ -11,13 +11,17 @@ import { RecommendState } from "./store/constants";
 import { forceCheck } from "react-lazyload";
 
 function Recommend(props: RecommendProps) {
-  const { bannerList, recommendList } = props;
+  const { bannerList, recommendList, enterLoading } = props;
 
   const { getBannerDataDispatch, getRecommendDataDispatch } = props;
 
   useEffect(() => {
-    getBannerDataDispatch();
-    getRecommendDataDispatch();
+    if (!bannerList.size) {
+      getBannerDataDispatch();
+    }
+    if (!recommendList.size) {
+      getRecommendDataDispatch();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -32,7 +36,7 @@ function Recommend(props: RecommendProps) {
           <RecommendList recommendList={recommendListJs}></RecommendList>
         </div>
       </Scroll>
-      <Loading></Loading>
+      {enterLoading ? <Loading></Loading> : ""}
     </Content>
   );
 }
@@ -40,6 +44,7 @@ function Recommend(props: RecommendProps) {
 const mapStateToProps = (state: RecommendState) => ({
   bannerList: state.getIn(["recommend", "bannerList"]),
   recommendList: state.getIn(["recommend", "recommendList"]),
+  enterLoading: state.getIn(["recommend", "enterLoading"]),
 });
 
 const mapDispatchToProps = (dispatch: any) => {

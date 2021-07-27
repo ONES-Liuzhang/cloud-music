@@ -8,6 +8,7 @@ export interface HomeProps {
 export interface RecommendProps {
   bannerList: ObjWithImmutable<BannerList>;
   recommendList: ObjWithImmutable<RecommendList>;
+  enterLoading: boolean;
   getBannerDataDispatch: () => void;
   getRecommendDataDispatch: () => void;
 }

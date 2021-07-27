@@ -9,6 +9,7 @@ import {
 const defaultState = fromJS({
   bannerList: [],
   recommendList: [],
+  enterLoading: true,
 }) as RecommendState;
 
 const reducer = (
@@ -21,6 +22,8 @@ const reducer = (
       return state.set(RecommendStateKey.BANNER_LIST, actions.data);
     case RecommendActionsType.CHANGE_RECOMMEND_LIST:
       return state.set(RecommendStateKey.RECOMMEND_LIST, actions.data);
+    case RecommendActionsType.CHANGE_ENTER_LOADING:
+      return state.set(RecommendStateKey.ENTER_LOADING, actions.data);
     default:
       return state;
   }
