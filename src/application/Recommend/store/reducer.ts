@@ -12,18 +12,15 @@ const defaultState = fromJS({
   enterLoading: true,
 }) as RecommendState;
 
-const reducer = (
-  state = defaultState,
-  actions: RecommendActions<RecommendActionsType>
-) => {
-  switch (actions.type) {
-    case RecommendActionsType.CHANGE_BANNER:
+const reducer = (state = defaultState, { type, data }: RecommendActions) => {
+  switch (type) {
+    case RecommendActionsType.CHANGE_BANNER_LIST:
       // TODO reducer不能改变state，immutable是怎么做到的不改变？
-      return state.set(RecommendStateKey.BANNER_LIST, actions.data);
+      return state.set(RecommendStateKey.BANNER_LIST, data);
     case RecommendActionsType.CHANGE_RECOMMEND_LIST:
-      return state.set(RecommendStateKey.RECOMMEND_LIST, actions.data);
+      return state.set(RecommendStateKey.RECOMMEND_LIST, data);
     case RecommendActionsType.CHANGE_ENTER_LOADING:
-      return state.set(RecommendStateKey.ENTER_LOADING, actions.data);
+      return state.set(RecommendStateKey.ENTER_LOADING, data);
     default:
       return state;
   }

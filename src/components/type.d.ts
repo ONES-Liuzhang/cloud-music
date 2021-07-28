@@ -1,3 +1,5 @@
+import { SingerInfo } from "../application/Singers/store/constans";
+
 export interface BannerInfo {
   imageUrl: string;
 }
@@ -6,12 +8,6 @@ export interface RecommendInfo {
   id: number;
   picUrl: string;
   playCount: number;
-  name: string;
-}
-
-export interface SingerInfo {
-  picUrl: string;
-  accountId: number;
   name: string;
 }
 

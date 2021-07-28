@@ -6,13 +6,13 @@ import { fromJS } from "immutable";
 import { RecommendActionsType, BannerList, RecommendList } from "./constants";
 
 export const changeBannerList = (data: BannerList) => ({
-  type: RecommendActionsType.CHANGE_BANNER,
-  data: fromJS(data) as any,
+  type: RecommendActionsType.CHANGE_BANNER_LIST,
+  data: fromJS(data),
 });
 
 export const changeRecommendList = (data: RecommendList) => ({
   type: RecommendActionsType.CHANGE_RECOMMEND_LIST,
-  data: fromJS(data) as any,
+  data: fromJS(data),
 });
 
 export const changeEnterLoader = (data: boolean) => ({

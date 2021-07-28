@@ -7,7 +7,6 @@ import { Content } from "./style";
 import { RecommendProps } from "../type";
 import * as actionTypes from "./store/actionCreator";
 import { connect } from "react-redux";
-import { RecommendState } from "./store/constants";
 import { forceCheck } from "react-lazyload";
 
 function Recommend(props: RecommendProps) {
@@ -41,7 +40,7 @@ function Recommend(props: RecommendProps) {
   );
 }
 
-const mapStateToProps = (state: RecommendState) => ({
+const mapStateToProps = (state: any) => ({
   bannerList: state.getIn(["recommend", "bannerList"]),
   recommendList: state.getIn(["recommend", "recommendList"]),
   enterLoading: state.getIn(["recommend", "enterLoading"]),

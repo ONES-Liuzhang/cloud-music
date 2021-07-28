@@ -1,12 +1,12 @@
 /** 被immutable包裹的对象 */
-type ObjWithImmutable<P> = P & {
+interface ObjWithImmutable<P> {
   toJS: () => P;
-  get: (k: keyof P) => P[k];
-  set: (k: keyof P, value: P[k]) => p[k];
+  get: <K = any>(k: K) => P[K];
+  set: <K = any>(k: K, value: P[K]) => ObjWithImmutable<P>;
   getIn: <K = any>(
     collection?: any,
     keyPath?: Iterable<any>,
     notSetValue?: any
   ) => P[K];
   size: number;
-};
+}
