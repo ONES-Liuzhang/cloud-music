@@ -17,5 +17,21 @@ export interface RecommendProps {
 
 export interface SingerProps {
   singerList: ObjWithImmutable<Array<SingerInfo>>;
-  getSingerListDispatch: (query: SingerListRequestParams) => void;
+  enterLoading: boolean;
+  pullUpLoading: boolean;
+  pullDownLoading: boolean;
+  pageNumber: number;
+  getHotSingerListDispatch: () => void;
+  updateDispatch: (category: string, alpha: string) => void;
+  pullUpRefreshDispatch: (
+    category: string,
+    alpha: string,
+    hot: boolean,
+    count: number
+  ) => void;
+  pullDownRefreshDispatch: (
+    category: string,
+    alpha: string,
+    hot: boolean
+  ) => void;
 }

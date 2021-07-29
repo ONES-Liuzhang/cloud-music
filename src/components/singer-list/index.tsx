@@ -8,7 +8,7 @@ function SingerList(props: SingerListProps) {
   return (
     <List>
       {singerList.map((item) => (
-        <ListItem key={item.accountId}>
+        <ListItem key={item.id}>
           <div className={"img_wrapper"}>
             <img
               height="100%"

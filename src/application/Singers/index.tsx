@@ -7,36 +7,48 @@ import { categoryTypes, alphaTypes } from "../../api/config";
 import { connect } from "react-redux";
 import { SingerProps } from "../type";
 import * as actionTypes from "./store/actionCreator";
-import { SingerListRequestParams } from "../../api/type";
 import { SingerStateKeys } from "./store/constans";
+import Loading from "../../baseUI/loading";
 
 function Singers(props: SingerProps) {
-  const [category, setCategory] = useState<string>("");
-  const [alpha, setAlpha] = useState<string>("");
+  const [category, setCategory] = useState("");
+  const [alpha, setAlpha] = useState("");
+  const [hot, setHot] = useState(true);
 
-  const { singerList, getSingerListDispatch } = props;
+  const {
+    singerList,
+    enterLoading,
+    pullDownLoading,
+    pullUpLoading,
+    pageNumber,
+    getHotSingerListDispatch,
+    updateDispatch,
+    pullDownRefreshDispatch,
+    pullUpRefreshDispatch,
+  } = props;
 
   const singerListJs = singerList.toJS();
 
   const handleCategoryUpdate = (val: string) => {
     setCategory(val);
+    updateDispatch(category, val);
   };
 
   const handleAlphaUpdate = (val: string) => {
     setAlpha(val);
+    updateDispatch(val, alpha);
   };
 
   useEffect(() => {
-    getSingerListDispatch({ category, alpha });
+    if (!singerList.size) {
+      getHotSingerListDispatch();
+    }
   }, []);
 
-  // mock
-  // const singerList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => ({
-  //   picUrl:
-  //     "https://p2.music.126.net/uTwOm8AEFFX_BYHvfvFcmQ==/109951164232057952.jpg",
-  //   name: "隔壁老樊",
-  //   accountId: 277313426 + item,
-  // }));
+  useEffect(() => {
+    setHot(true);
+    updateDispatch(category, alpha);
+  }, [category, alpha]);
 
   return (
     <SingerContainer>
@@ -55,10 +67,20 @@ function Singers(props: SingerProps) {
         ></Horizen>
       </NavContainer>
       <ScrollContainer>
-        <Scroll>
-          <SingerList singerList={singerListJs}></SingerList>
+        <Scroll
+          pullDown={() => pullDownRefreshDispatch(category, alpha, hot)}
+          pullUp={() =>
+            pullUpRefreshDispatch(category, alpha, hot, pageNumber + 1)
+          }
+        >
+          <div>
+            {pullDownLoading && <span>加载中...</span>}
+            <SingerList singerList={singerListJs}></SingerList>
+            {pullUpLoading && <span>加载中...</span>}
+          </div>
         </Scroll>
       </ScrollContainer>
+      {enterLoading && <Loading></Loading>}
     </SingerContainer>
   );
 }
@@ -68,11 +90,41 @@ const mapStateToProps = (state: any) => ({
   enterLoading: state.getIn(["singers", SingerStateKeys.ENTER_LOADING]),
   pullUpLoading: state.getIn(["singers", SingerStateKeys.PULL_UP_LOADING]),
   pullDownLoading: state.getIn(["singers", SingerStateKeys.PULL_DOWN_LOADING]),
+  pageNumber: state.getIn(["singers", SingerStateKeys.PAGE_NUMBER]),
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getSingerListDispatch(query: SingerListRequestParams) {
-    dispatch(actionTypes.getSingerList(query));
+  getHotSingerListDispatch() {
+    dispatch(actionTypes.getHotSingerList());
+  },
+  updateDispatch(category: string, alpha: string) {
+    dispatch(actionTypes.getSingerList({ category, alpha }));
+    dispatch(actionTypes.getSingerList({ category, alpha }));
+  },
+  /** 上拉加载 */
+  pullUpRefreshDispatch(
+    category: string,
+    alpha: string,
+    hot: boolean,
+    count: number
+  ) {
+    dispatch(actionTypes.changePullUpLoading(true));
+    dispatch(actionTypes.changePageNumber(count + 1));
+    if (hot) {
+      dispatch(actionTypes.refreshMoreHotSingerList());
+    } else {
+      dispatch(actionTypes.refreshMoreSingerList({ category, alpha }));
+    }
+  },
+  /** 下拉更新 */
+  pullDownRefreshDispatch(category: string, alpha: string, hot: boolean) {
+    dispatch(actionTypes.changePullDownLoading(true));
+    dispatch(actionTypes.changePageNumber(0));
+    if (hot) {
+      dispatch(actionTypes.refreshMoreHotSingerList());
+    } else {
+      dispatch(actionTypes.refreshMoreSingerList({ category, alpha }));
+    }
   },
 });
 
