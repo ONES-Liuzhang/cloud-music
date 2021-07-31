@@ -72,12 +72,10 @@ function Singers(props: SingerProps) {
           pullUp={() =>
             pullUpRefreshDispatch(category, alpha, hot, pageNumber + 1)
           }
+          pullDownLoading={pullDownLoading}
+          pullUpLoading={pullUpLoading}
         >
-          <div>
-            {pullDownLoading && <span>加载中...</span>}
-            <SingerList singerList={singerListJs}></SingerList>
-            {pullUpLoading && <span>加载中...</span>}
-          </div>
+          <SingerList singerList={singerListJs}></SingerList>
         </Scroll>
       </ScrollContainer>
       {enterLoading && <Loading></Loading>}
@@ -109,6 +107,7 @@ const mapDispatchToProps = (dispatch: any) => ({
     count: number
   ) {
     dispatch(actionTypes.changePullUpLoading(true));
+    // TODO 改变页码：api报错是否有影响
     dispatch(actionTypes.changePageNumber(count + 1));
     if (hot) {
       dispatch(actionTypes.refreshMoreHotSingerList());
@@ -121,9 +120,9 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(actionTypes.changePullDownLoading(true));
     dispatch(actionTypes.changePageNumber(0));
     if (hot) {
-      dispatch(actionTypes.refreshMoreHotSingerList());
+      dispatch(actionTypes.getHotSingerList());
     } else {
-      dispatch(actionTypes.refreshMoreSingerList({ category, alpha }));
+      dispatch(actionTypes.getSingerList({ category, alpha }));
     }
   },
 });

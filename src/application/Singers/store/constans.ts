@@ -1,8 +1,8 @@
 export enum SingerActionsType {
   CHANGE_SINGER_LIST = "singers/change_singer_list",
   CHANGE_ENTER_LOADING = "singers/change_loading",
-  CHANGE_PULL_UP_LOADING = "singers/change_pull_up_loading", // 上拉加载
-  CHANGE_PULL_DOWN_LOADING = "singers/change_pull_down_loading", // 下拉刷新
+  CHANGE_PULL_UP_LOADING = "singers/change_pull_up_loading", // 上拉到底
+  CHANGE_PULL_DOWN_LOADING = "singers/change_pull_down_loading", // 下拉到顶
   CHANGE_PAGE_NUMBER = "singers/change_page_number",
 }
 

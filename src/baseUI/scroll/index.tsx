@@ -7,8 +7,10 @@ import React, {
   ReactElement,
 } from "react";
 import BetterScroll from "better-scroll";
-import { ScrollContainer } from "./style";
+import { ScrollContainer, PullDownLoading, PullUpLoading } from "./style";
 import { ScrollProps, ScrollPosition } from "../type";
+import Loading from "../loading";
+import LoadingV2 from "../loading-v2";
 
 // Scroll.propTypes = {
 //   direction: PropTypes.oneOf(["vertical", "horizental"]), // 滚动方向
@@ -33,10 +35,17 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
     refresh,
     bounceDown,
     bounceTop,
-    pullDownLoading,
+    pullDownLoading, // 外部传入
     pullUpLoading,
   } = props;
   const { onScroll, pullDown, pullUp } = props;
+
+  const pullDownLoadingStyle = pullDownLoading
+    ? { display: "" }
+    : { display: "none" };
+  const pullUpLoadingStyle = pullUpLoading
+    ? { display: "" }
+    : { display: "none" };
 
   // 初始化
   useEffect(() => {
@@ -54,7 +63,6 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
       }
     );
     setBScroll(scroll);
-    console.log(props.children, scroll);
     return () => {
       setBScroll(null);
     };
@@ -123,7 +131,17 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
 
   // props.children 类似Vue中的$slot
   return (
-    <ScrollContainer ref={scrollContainerRef}>{props.children}</ScrollContainer>
+    <ScrollContainer ref={scrollContainerRef}>
+      {props.children}
+      {/* 滑动到底部 显示loading */}
+      <PullUpLoading style={pullUpLoadingStyle}>
+        <Loading></Loading>
+      </PullUpLoading>
+      {/* 滑动到顶部 显示加载中 */}
+      <PullDownLoading style={pullDownLoadingStyle}>
+        <LoadingV2></LoadingV2>
+      </PullDownLoading>
+    </ScrollContainer>
   );
 });
 

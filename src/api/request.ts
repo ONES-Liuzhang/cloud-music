@@ -8,8 +8,8 @@ export const getBannerRequest = () => axiosInstance.get("/banner");
 export const getRecommendListRequest = () => axiosInstance.get("/personalized");
 
 /** 获取热门歌手 */
-export const getHotSingerListRequest = (count: number, limit = 20) =>
-  axiosInstance.get(`/top/artists?offset=${count}&limit=${limit}`);
+export const getHotSingerListRequest = (count: number, limit = 10) =>
+  axiosInstance.get(`/top/artists?offset=${count * limit}&limit=${limit}`);
 
 /** 获取歌手 */
 export const getSingerListRequest = ({
