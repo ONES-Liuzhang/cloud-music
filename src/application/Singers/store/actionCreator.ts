@@ -11,7 +11,7 @@ const changeSingerList = (data: SingerInfo) => ({
   data: fromJS(data),
 });
 
-const changeEnterLoading = (loading: boolean) => ({
+export const changeEnterLoading = (loading: boolean) => ({
   type: SingerActionsType.CHANGE_ENTER_LOADING,
   data: loading,
 });
@@ -81,6 +81,7 @@ export const getSingerList = (query: SingerListRequestParams) => {
     }).then(
       (data) => {
         dispatch(changeSingerList(data.artists));
+        dispatch(changeEnterLoading(false));
         dispatch(changePullDownLoading(false));
       },
       (err) => {

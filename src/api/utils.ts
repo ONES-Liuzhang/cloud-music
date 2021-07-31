@@ -1,3 +1,5 @@
+export function noop() {}
+
 export function getCount(count: number): string {
   if (count < 0) return "0";
   if (count < 10000) {
@@ -7,4 +9,20 @@ export function getCount(count: number): string {
   } else {
     return Math.floor(count / 10000000) / 10 + "亿";
   }
+}
+
+/** 防抖 */
+export function debounce(fn: any, duration = 300) {
+  if (!fn) return noop;
+  if (typeof fn !== "function") {
+    throw new Error("debounce 参数必须是一个函数！");
+  }
+  let startTime = Date.now();
+  return (...args: any) => {
+    let currTime = Date.now();
+    if (currTime - startTime >= duration) {
+      fn.apply(fn, args);
+    }
+    startTime = currTime;
+  };
 }

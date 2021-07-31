@@ -5,6 +5,7 @@ import routes from "./routes";
 import { HashRouter } from "react-router-dom";
 import store from "./store";
 import { Provider } from "react-redux";
+import { Data } from "./application/Singers/data";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <HashRouter>
         <GlobalStyle></GlobalStyle>
         <IconStyle></IconStyle>
-        {renderRoutes(routes)}
+        <Data>{renderRoutes(routes)}</Data>
       </HashRouter>
     </Provider>
   );

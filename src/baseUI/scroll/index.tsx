@@ -3,6 +3,7 @@ import React, {
   useState,
   useRef,
   useEffect,
+  useMemo,
   useImperativeHandle,
   ReactElement,
 } from "react";
@@ -11,6 +12,7 @@ import { ScrollContainer, PullDownLoading, PullUpLoading } from "./style";
 import { ScrollProps, ScrollPosition } from "../type";
 import Loading from "../loading";
 import LoadingV2 from "../loading-v2";
+import { debounce } from "../../api/utils";
 
 // Scroll.propTypes = {
 //   direction: PropTypes.oneOf(["vertical", "horizental"]), // 滚动方向
@@ -46,6 +48,15 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
   const pullUpLoadingStyle = pullUpLoading
     ? { display: "" }
     : { display: "none" };
+
+  // 会在渲染期间执行，不涉及渲染的要在useEffect中，把它当成性能优化
+  const pullDownDebounce = useMemo(() => {
+    return debounce(pullDown);
+  }, [pullDown]);
+
+  const pullUpDebounce = useMemo(() => {
+    return debounce(pullUp);
+  }, [pullUp]);
 
   // 初始化
   useEffect(() => {
@@ -93,7 +104,7 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
     if (pullDown && bScroll) {
       bScroll.on("touchEnd", (pos: ScrollPosition) => {
         if (pos.y > 50) {
-          pullDown();
+          pullDownDebounce();
         }
       });
       return () => {
@@ -108,7 +119,7 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
       // 滚动结束时
       bScroll.on("scrollEnd", () => {
         if (bScroll.y <= bScroll.maxScrollY + 100) {
-          pullUp();
+          pullUpDebounce();
         }
       });
       return () => {

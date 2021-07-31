@@ -8,7 +8,7 @@ export const getBannerRequest = () => axiosInstance.get("/banner");
 export const getRecommendListRequest = () => axiosInstance.get("/personalized");
 
 /** 获取热门歌手 */
-export const getHotSingerListRequest = (count: number, limit = 10) =>
+export const getHotSingerListRequest = (count: number, limit = 12) =>
   axiosInstance.get(`/top/artists?offset=${count * limit}&limit=${limit}`);
 
 /** 获取歌手 */
@@ -21,3 +21,6 @@ export const getSingerListRequest = ({
   axiosInstance.get(
     `/artist/list?cat=${category}&initial=${alpha.toLowerCase()}&offset=${count}&limit=${limit}`
   );
+
+/** 获取排行榜单 */
+export const getRankListRequest = () => axiosInstance.get("/toplist/detail");

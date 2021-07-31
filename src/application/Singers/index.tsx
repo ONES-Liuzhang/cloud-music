@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import Horizen from "../../baseUI/horizen-item";
 import SingerList from "../../components/singer-list";
 import Scroll from "../../baseUI/scroll";
@@ -9,11 +9,12 @@ import { SingerProps } from "../type";
 import * as actionTypes from "./store/actionCreator";
 import { SingerStateKeys } from "./store/constans";
 import Loading from "../../baseUI/loading";
+import { forceCheck } from "react-lazyload";
+import { CategoryContext } from "./data";
 
 function Singers(props: SingerProps) {
-  const [category, setCategory] = useState("");
-  const [alpha, setAlpha] = useState("");
-  const [hot, setHot] = useState(true);
+  const { data, dispatch } = useContext(CategoryContext);
+  const { category, alpha } = data.toJS();
 
   const {
     singerList,
@@ -30,25 +31,23 @@ function Singers(props: SingerProps) {
   const singerListJs = singerList.toJS();
 
   const handleCategoryUpdate = (val: string) => {
-    setCategory(val);
-    updateDispatch(category, val);
-  };
-
-  const handleAlphaUpdate = (val: string) => {
-    setAlpha(val);
+    if (category === val) return;
+    dispatch && dispatch({ type: "singers/change_category", data: val });
     updateDispatch(val, alpha);
   };
 
+  const handleAlphaUpdate = (val: string) => {
+    if (alpha === val) return;
+    dispatch && dispatch({ type: "singers/change_alpha", data: val });
+    updateDispatch(category, val);
+  };
+
+  // 初始化
   useEffect(() => {
     if (!singerList.size) {
       getHotSingerListDispatch();
     }
   }, []);
-
-  useEffect(() => {
-    setHot(true);
-    updateDispatch(category, alpha);
-  }, [category, alpha]);
 
   return (
     <SingerContainer>
@@ -57,20 +56,28 @@ function Singers(props: SingerProps) {
           title="分类 (默认热门):"
           list={categoryTypes}
           oldVal={category}
-          handleClick={(val) => handleCategoryUpdate(val)}
+          handleClick={handleCategoryUpdate}
         ></Horizen>
         <Horizen
           title="首字母:"
           list={alphaTypes}
           oldVal={alpha}
-          handleClick={(val) => handleAlphaUpdate(val)}
+          handleClick={handleAlphaUpdate}
         ></Horizen>
       </NavContainer>
       <ScrollContainer>
         <Scroll
-          pullDown={() => pullDownRefreshDispatch(category, alpha, hot)}
+          onScroll={forceCheck}
+          pullDown={() =>
+            pullDownRefreshDispatch(category, alpha, category === "")
+          }
           pullUp={() =>
-            pullUpRefreshDispatch(category, alpha, hot, pageNumber + 1)
+            pullUpRefreshDispatch(
+              category,
+              alpha,
+              category === "",
+              pageNumber + 1
+            )
           }
           pullDownLoading={pullDownLoading}
           pullUpLoading={pullUpLoading}
@@ -96,7 +103,8 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(actionTypes.getHotSingerList());
   },
   updateDispatch(category: string, alpha: string) {
-    dispatch(actionTypes.getSingerList({ category, alpha }));
+    dispatch(actionTypes.changePageNumber(0));
+    dispatch(actionTypes.changeEnterLoading(true));
     dispatch(actionTypes.getSingerList({ category, alpha }));
   },
   /** 上拉加载 */
