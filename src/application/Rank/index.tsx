@@ -1,23 +1,91 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect, ConnectedProps } from "react-redux";
-import { AppDispatch } from "../../store";
-import { getRankList } from "./store";
+import { getRankList, RankList, TracksList } from "./store";
+import Loading from "../../baseUI/loading";
+import Scroll from "../../baseUI/scroll";
+import { Container, List, ListItem, SongList } from "./style";
+
 function Rank(props: PropsFromRedux) {
-  const { rankList, loading } = props;
+  const { globalRankList, officialRankList, loading } = props;
 
   const { getRankListDispatch } = props;
 
-  return <div>Rank</div>;
+  console.log(globalRankList);
+  const globalRankListJs = globalRankList.toJS();
+  const officialRankListJs = officialRankList.toJS();
+
+  useEffect(() => {
+    getRankListDispatch();
+  }, []);
+
+  const renderSong = (list: TracksList) => {
+    return list.length ? (
+      <SongList>
+        {list.map((item, index) => (
+          <li key={`${item.first}-${item.second}`}>
+            {index + 1}. {item.first} - {item.second}
+          </li>
+        ))}
+      </SongList>
+    ) : null;
+  };
+
+  const renderRankList = (list: RankList, global: boolean) => {
+    return (
+      <List globalRank={global}>
+        {list.map((item) => {
+          return (
+            <ListItem key={item.id} tracks={item.tracks}>
+              <div className="img_wrapper">
+                <img src={item.coverImgUrl + "?param=300x300"} alt="" />
+                <div className="update_frequecy">{item.updateFrequency}</div>
+                <div className="decorate"></div>
+              </div>
+              {renderSong(item.tracks)}
+            </ListItem>
+          );
+        })}
+      </List>
+    );
+  };
+
+  const displyStyle = loading ? { display: "none" } : { display: "" };
+
+  return (
+    <Container>
+      <Scroll>
+        <div>
+          <h1 className="title" style={displyStyle}>
+            官方榜
+          </h1>
+          {renderRankList(officialRankListJs, false)}
+
+          <h1 className="title" style={displyStyle}>
+            全国榜
+          </h1>
+          {renderRankList(globalRankListJs, true)}
+        </div>
+      </Scroll>
+      {loading && <Loading></Loading>}
+    </Container>
+  );
 }
 
 const mapStateToProps = (state: any) => ({
-  rankList: state.getIn(["rank", "rankList"]),
-  loading: state.getIn(["rank", "loading"]),
+  globalRankList: state.getIn([
+    "rank",
+    "globalRankList",
+  ]) as ObjWithImmutable<RankList>,
+  officialRankList: state.getIn([
+    "rank",
+    "officialRankList",
+  ]) as ObjWithImmutable<RankList>,
+  loading: state.getIn(["rank", "loading"]) as boolean,
 });
 
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
+const mapDispatchToProps = (dispatch: any) => ({
   getRankListDispatch() {
-    // dispatch(getRankList());
+    dispatch(getRankList());
   },
 });
 

@@ -3,7 +3,7 @@ import { fromJS } from "immutable";
 
 type RankActions =
   | {
-      type: "rank/change_rank_list";
+      type: "rank/change_global_rank_list" | "rank/change_official_rank_list";
       data: ObjWithImmutable<Array<RankInfo>>;
     }
   | {
@@ -11,12 +11,14 @@ type RankActions =
       data: boolean;
     };
 
-interface RankInfo {
+export type TracksList = Array<{ first?: string; second?: string }>;
+
+export interface RankInfo {
   subscribers: Array<any>;
   subscribed: null;
   creator: null;
   artists: null;
-  tracks: Array<{ first?: string; second?: string }>;
+  tracks: TracksList;
   updateFrequency: string;
   backgroundCoverId: number;
   backgroundCoverUrl: null;
@@ -54,34 +56,59 @@ interface RankInfo {
   ToplistType: string;
 }
 
+export type RankList = Array<RankInfo>;
+
 interface RankStateJs {
-  rankList: ObjWithImmutable<Array<RankInfo>>;
+  globalRankList: ObjWithImmutable<Array<RankInfo>>;
+  officialRankList: ObjWithImmutable<Array<RankInfo>>;
   loading: boolean;
 }
 
 type RankState = ObjWithImmutable<RankStateJs>;
 
-const changeRankList = (data: Array<RankInfo>) => ({
-  type: "rank/change_rank_list",
+/** 修改全球榜 */
+const changeGlobalRankList = (data: Array<RankInfo>) => ({
+  type: "rank/change_global_rank_list",
+  data: fromJS(data),
+});
+
+/** 修改全国榜 */
+const changeOfficialRankList = (data: Array<RankInfo>) => ({
+  type: "rank/change_official_rank_list",
   data: fromJS(data),
 });
 
 export const changeLoading = (data: boolean) => ({
-  type: "rank/chang_loading",
+  type: "rank/change_loading",
   data: data,
 });
 
 export const getRankList = () => {
   return (dispatch: any) => {
     getRankListRequest().then((data) => {
-      dispatch(changeRankList(data.list));
+      // 处理全球榜和官方榜
+      const list = (data?.list as RankList) || [];
+      let limitIndex = -1;
+      for (let i = 0; i < list.length - 1; i++) {
+        if (list[i].tracks && list[i].tracks.length === 0) {
+          limitIndex = i - 1;
+          break;
+        }
+      }
+
+      const officialRankList = list.slice(0, limitIndex + 1);
+      const globalRankList = list.slice(limitIndex + 1);
+
+      dispatch(changeGlobalRankList(globalRankList));
+      dispatch(changeOfficialRankList(officialRankList));
       dispatch(changeLoading(false));
     });
   };
 };
 
 const initialState = fromJS({
-  rankList: [],
+  globalRankList: fromJS([]), // 全球榜
+  officialRankList: fromJS([]), // 官方榜
   loading: true,
 }) as RankState;
 
@@ -89,8 +116,10 @@ export const reducer = (state = initialState, actions: RankActions) => {
   switch (actions.type) {
     case "rank/change_loading":
       return state.set("loading", actions.data);
-    case "rank/change_rank_list":
-      return state.set("rankList", actions.data);
+    case "rank/change_global_rank_list":
+      return state.set("globalRankList", actions.data);
+    case "rank/change_official_rank_list":
+      return state.set("officialRankList", actions.data);
     default:
       return state;
   }
