@@ -1,4 +1,4 @@
-import { SingerInfo } from "../application/Singers/store/constans";
+import { SingerList } from "../application/Singers/store/constans";
 
 export interface BannerInfo {
   imageUrl: string;
@@ -20,5 +20,5 @@ export interface RecommendListProps {
 }
 
 export interface SingerListProps {
-  singerList: Array<SingerInfo>;
+  singerList: SingerList;
 }

@@ -1,26 +1,25 @@
 import { fromJS } from "immutable";
 import {
   RecommendActions,
-  RecommendActionsType,
   RecommendState,
   RecommendStateKey,
 } from "./constants";
 
-const defaultState = fromJS({
+const initialState = fromJS({
   bannerList: [],
   recommendList: [],
   enterLoading: true,
 }) as RecommendState;
 
-const reducer = (state = defaultState, { type, data }: RecommendActions) => {
-  switch (type) {
-    case RecommendActionsType.CHANGE_BANNER_LIST:
+const reducer = (state = initialState, actions: RecommendActions) => {
+  switch (actions.type) {
+    case "recommend/change_banner":
       // TODO reducer不能改变state，immutable是怎么做到的不改变？
-      return state.set(RecommendStateKey.BANNER_LIST, data);
-    case RecommendActionsType.CHANGE_RECOMMEND_LIST:
-      return state.set(RecommendStateKey.RECOMMEND_LIST, data);
-    case RecommendActionsType.CHANGE_ENTER_LOADING:
-      return state.set(RecommendStateKey.ENTER_LOADING, data);
+      return state.set(RecommendStateKey.BANNER_LIST, actions.data);
+    case "recommend/change_recommend_list":
+      return state.set(RecommendStateKey.RECOMMEND_LIST, actions.data);
+    case "recommend/change_loading":
+      return state.set(RecommendStateKey.ENTER_LOADING, actions.data);
     default:
       return state;
   }

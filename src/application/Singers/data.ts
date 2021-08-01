@@ -22,13 +22,13 @@ export interface CategoryContextVal {
   dispatch?: Dispatch<CategoryActions>;
 }
 
-const defaultState = fromJS({
+const initialState = fromJS({
   category: "",
   alpha: "",
 }) as CategoryState;
 
 export const CategoryContext: React.Context<CategoryContextVal> = createContext(
-  { data: defaultState }
+  { data: initialState }
 );
 
 const reducer = (state: CategoryState, actions: CategoryActions) => {
@@ -43,7 +43,7 @@ const reducer = (state: CategoryState, actions: CategoryActions) => {
 };
 
 export const Data = (props: PropsWithChildren<{}>) => {
-  const [data, dispatch] = useReducer(reducer, defaultState);
+  const [data, dispatch] = useReducer(reducer, initialState);
   return React.createElement(
     CategoryContext.Provider,
     {

@@ -4,12 +4,11 @@ import RecommendList from "../../components/recommend-list";
 import Scroll from "../../baseUI/scroll";
 import Loading from "../../baseUI/loading";
 import { Content } from "./style";
-import { RecommendProps } from "../type";
 import * as actionTypes from "./store/actionCreator";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { forceCheck } from "react-lazyload";
 
-function Recommend(props: RecommendProps) {
+function Recommend(props: PropsFromRedux) {
   const { bannerList, recommendList, enterLoading } = props;
 
   const { getBannerDataDispatch, getRecommendDataDispatch } = props;
@@ -57,7 +56,8 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(React.memo(Recommend));
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(React.memo(Recommend));

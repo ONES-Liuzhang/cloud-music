@@ -3,31 +3,40 @@ import {
   getHotSingerListRequest,
 } from "../../../api/request";
 import { SingerListRequestParams } from "../../../api/type";
-import { SingerInfo, SingerActionsType, SingerStateKeys } from "./constans";
+import {
+  SingerInfo,
+  SingerStateKeys,
+  SingerActions,
+  SingerList,
+} from "./constans";
 import { fromJS } from "immutable";
 
-const changeSingerList = (data: SingerInfo) => ({
-  type: SingerActionsType.CHANGE_SINGER_LIST,
-  data: fromJS(data),
+interface ActionCreators {
+  (data: any): SingerActions;
+}
+
+const changeSingerList: ActionCreators = (data: SingerInfo) => ({
+  type: "singers/change_singer_list",
+  data: fromJS(data) as ObjWithImmutable<SingerList>,
 });
 
-export const changeEnterLoading = (loading: boolean) => ({
-  type: SingerActionsType.CHANGE_ENTER_LOADING,
+export const changeEnterLoading: ActionCreators = (loading: boolean) => ({
+  type: "singers/change_loading",
   data: loading,
 });
 
-export const changePullDownLoading = (loading: boolean) => ({
-  type: SingerActionsType.CHANGE_PULL_DOWN_LOADING,
+export const changePullDownLoading: ActionCreators = (loading: boolean) => ({
+  type: "singers/change_pull_down_loading",
   data: loading,
 });
 
-export const changePullUpLoading = (loading: boolean) => ({
-  type: SingerActionsType.CHANGE_PULL_UP_LOADING,
+export const changePullUpLoading: ActionCreators = (loading: boolean) => ({
+  type: "singers/change_pull_up_loading",
   data: loading,
 });
 
-export const changePageNumber = (pageNum: number) => ({
-  type: SingerActionsType.CHANGE_PAGE_NUMBER,
+export const changePageNumber: ActionCreators = (pageNum: number) => ({
+  type: "singers/change_page_number",
   data: pageNum,
 });
 

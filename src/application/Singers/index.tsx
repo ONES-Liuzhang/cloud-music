@@ -1,18 +1,18 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Horizen from "../../baseUI/horizen-item";
 import SingerList from "../../components/singer-list";
 import Scroll from "../../baseUI/scroll";
 import { NavContainer, SingerContainer, ScrollContainer } from "./style";
 import { categoryTypes, alphaTypes } from "../../api/config";
-import { connect } from "react-redux";
-import { SingerProps } from "../type";
+import { connect, ConnectedProps } from "react-redux";
 import * as actionTypes from "./store/actionCreator";
 import { SingerStateKeys } from "./store/constans";
 import Loading from "../../baseUI/loading";
 import { forceCheck } from "react-lazyload";
 import { CategoryContext } from "./data";
+import { RootState } from "../../store/reducer";
 
-function Singers(props: SingerProps) {
+function Singers(props: PropsFromRedux) {
   const { data, dispatch } = useContext(CategoryContext);
   const { category, alpha } = data.toJS();
 
@@ -90,7 +90,7 @@ function Singers(props: SingerProps) {
   );
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   singerList: state.getIn(["singers", SingerStateKeys.SINGER_LIST]),
   enterLoading: state.getIn(["singers", SingerStateKeys.ENTER_LOADING]),
   pullUpLoading: state.getIn(["singers", SingerStateKeys.PULL_UP_LOADING]),
@@ -134,6 +134,10 @@ const mapDispatchToProps = (dispatch: any) => ({
     }
   },
 });
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
 
 export default connect(
   mapStateToProps,

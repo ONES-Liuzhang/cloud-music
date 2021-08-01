@@ -1,10 +1,3 @@
-/** actions的类型 */
-export enum RecommendActionsType {
-  CHANGE_BANNER_LIST = "recommend/change_banner",
-  CHANGE_RECOMMEND_LIST = "recommend/change_recommend_list",
-  CHANGE_ENTER_LOADING = "recommend/change_loading",
-}
-
 /** state中的key */
 export enum RecommendStateKey {
   BANNER_LIST = "bannerList",
@@ -12,17 +5,19 @@ export enum RecommendStateKey {
   ENTER_LOADING = "enterLoading",
 }
 
-/** 建立actions type 和 state key 的关联 */
-export interface RecommendStateMap {
-  [RecommendActionsType.CHANGE_BANNER_LIST]: RecommendStateKey.BANNER_LIST;
-  [RecommendActionsType.CHANGE_RECOMMEND_LIST]: RecommendStateKey.RECOMMEND_LIST;
-  [RecommendActionsType.CHANGE_ENTER_LOADING]: RecommendStateKey.ENTER_LOADING;
-}
-
-export interface RecommendActions {
-  type: RecommendActionsType;
-  data: RecommendStateJs[RecommendStateMap[RecommendActionsType]];
-}
+export type RecommendActions =
+  | {
+      type: "recommend/change_banner";
+      data: ObjWithImmutable<BannerList>;
+    }
+  | {
+      type: "recommend/change_recommend_list";
+      data: ObjWithImmutable<RecommendList>;
+    }
+  | {
+      type: "recommend/change_loading";
+      data: boolean;
+    };
 
 export interface BannerData {
   imageUrl: string;
@@ -71,8 +66,8 @@ export type BannerList = Array<BannerData>;
 export type RecommendList = Array<RecommendData>;
 
 interface RecommendStateJs {
-  [RecommendStateKey.BANNER_LIST]: BannerList;
-  [RecommendStateKey.RECOMMEND_LIST]: RecommendList;
+  [RecommendStateKey.BANNER_LIST]: ObjWithImmutable<BannerList>;
+  [RecommendStateKey.RECOMMEND_LIST]: ObjWithImmutable<RecommendList>;
   [RecommendStateKey.ENTER_LOADING]: boolean;
 }
 

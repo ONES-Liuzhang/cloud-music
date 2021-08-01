@@ -1,11 +1,3 @@
-export enum SingerActionsType {
-  CHANGE_SINGER_LIST = "singers/change_singer_list",
-  CHANGE_ENTER_LOADING = "singers/change_loading",
-  CHANGE_PULL_UP_LOADING = "singers/change_pull_up_loading", // 上拉到底
-  CHANGE_PULL_DOWN_LOADING = "singers/change_pull_down_loading", // 下拉到顶
-  CHANGE_PAGE_NUMBER = "singers/change_page_number",
-}
-
 export enum SingerStateKeys {
   SINGER_LIST = "singerList",
   ENTER_LOADING = "enterLoading",
@@ -14,18 +6,27 @@ export enum SingerStateKeys {
   PAGE_NUMBER = "pageNumber",
 }
 
-export interface SingerStateMap {
-  [SingerActionsType.CHANGE_SINGER_LIST]: SingerStateKeys.SINGER_LIST;
-  [SingerActionsType.CHANGE_ENTER_LOADING]: SingerStateKeys.ENTER_LOADING;
-  [SingerActionsType.CHANGE_PULL_UP_LOADING]: SingerStateKeys.PULL_UP_LOADING;
-  [SingerActionsType.CHANGE_PULL_DOWN_LOADING]: SingerStateKeys.PULL_DOWN_LOADING;
-  [SingerActionsType.CHANGE_PAGE_NUMBER]: SingerStateKeys.PAGE_NUMBER;
-}
-
-export interface SingerActions {
-  type: SingerActionsType;
-  data: SingerStateJS[SingerStateMap[SingerActionsType]];
-}
+export type SingerActions =
+  | {
+      type: "singers/change_singer_list";
+      data: ObjWithImmutable<SingerList>;
+    }
+  | {
+      type: "singers/change_loading";
+      data: boolean;
+    }
+  | {
+      type: "singers/change_pull_up_loading";
+      data: boolean;
+    }
+  | {
+      type: "singers/change_pull_down_loading";
+      data: boolean;
+    }
+  | {
+      type: "singers/change_page_number";
+      data: number;
+    };
 
 export interface SingerInfo {
   accountId: number;
@@ -46,8 +47,10 @@ export interface SingerInfo {
   trans: string;
 }
 
+export type SingerList = Array<SingerInfo>;
+
 export interface SingerStateJS {
-  [SingerStateKeys.SINGER_LIST]: Array<SingerInfo>;
+  [SingerStateKeys.SINGER_LIST]: ObjWithImmutable<SingerList>;
   [SingerStateKeys.ENTER_LOADING]: boolean;
   [SingerStateKeys.PULL_UP_LOADING]: boolean;
   [SingerStateKeys.PULL_DOWN_LOADING]: boolean;

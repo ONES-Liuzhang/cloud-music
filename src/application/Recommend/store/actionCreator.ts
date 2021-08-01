@@ -3,20 +3,24 @@ import {
   getRecommendListRequest,
 } from "../../../api/request";
 import { fromJS } from "immutable";
-import { RecommendActionsType, BannerList, RecommendList } from "./constants";
+import { BannerList, RecommendList, RecommendActions } from "./constants";
 
-export const changeBannerList = (data: BannerList) => ({
-  type: RecommendActionsType.CHANGE_BANNER_LIST,
-  data: fromJS(data),
+interface ActionCreators {
+  (data: any): RecommendActions;
+}
+
+export const changeBannerList: ActionCreators = (data: BannerList) => ({
+  type: "recommend/change_banner",
+  data: fromJS(data) as ObjWithImmutable<BannerList>,
 });
 
-export const changeRecommendList = (data: RecommendList) => ({
-  type: RecommendActionsType.CHANGE_RECOMMEND_LIST,
-  data: fromJS(data),
+export const changeRecommendList: ActionCreators = (data: RecommendList) => ({
+  type: "recommend/change_recommend_list",
+  data: fromJS(data) as ObjWithImmutable<RecommendList>,
 });
 
-export const changeEnterLoader = (data: boolean) => ({
-  type: RecommendActionsType.CHANGE_ENTER_LOADING,
+export const changeEnterLoader: ActionCreators = (data: boolean) => ({
+  type: "recommend/change_loading",
   data: data,
 });
 
