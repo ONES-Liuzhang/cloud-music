@@ -10,7 +10,7 @@ function Rank(props: PropsFromRedux) {
 
   const { getRankListDispatch } = props;
 
-  console.log(globalRankList);
+  // TODO: 刷新页面会多次执行渲染，导致的原因？ 怎么优化？
   const globalRankListJs = globalRankList.toJS();
   const officialRankListJs = officialRankList.toJS();
 
