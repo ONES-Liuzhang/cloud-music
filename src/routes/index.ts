@@ -18,6 +18,7 @@ const routes: RouteConfig[] = [
         exact: true,
         render: () => React.createElement(Redirect, { to: "/recommend" }),
       },
+
       {
         path: "/recommend",
         component: Recommend,
