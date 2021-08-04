@@ -7,8 +7,10 @@ import { Content } from "./style";
 import * as actionTypes from "./store/actionCreator";
 import { connect, ConnectedProps } from "react-redux";
 import { forceCheck } from "react-lazyload";
+import { renderRoutes } from "react-router-config";
+import { PropsWithRoute } from "../../types";
 
-function Recommend(props: PropsFromRedux) {
+function Recommend(props: PropsWithRoute<PropsFromRedux>) {
   const { bannerList, recommendList, enterLoading } = props;
 
   const { getBannerDataDispatch, getRecommendDataDispatch } = props;
@@ -35,6 +37,7 @@ function Recommend(props: PropsFromRedux) {
         </div>
       </Scroll>
       {enterLoading ? <Loading></Loading> : ""}
+      {renderRoutes(props.route?.routes)}
     </Content>
   );
 }

@@ -6,6 +6,7 @@ import Recommend from "../application/Recommend";
 import Rank from "../application/Rank";
 import Singers from "../application/Singers";
 import TestView from "../application/TestView";
+import Album from "../application/Album";
 
 const routes: RouteConfig[] = [
   {
@@ -20,6 +21,12 @@ const routes: RouteConfig[] = [
       {
         path: "/recommend",
         component: Recommend,
+        routes: [
+          {
+            path: "/recommend/:id",
+            component: Album,
+          },
+        ],
       },
       {
         path: "/rank",

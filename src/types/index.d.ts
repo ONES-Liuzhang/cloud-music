@@ -13,5 +13,3 @@ export type PropsWithRoute<P> = P & {
 export type PropsWithClassName<P> = P & {
   className?: string | undefined;
 };
-
-export {};
