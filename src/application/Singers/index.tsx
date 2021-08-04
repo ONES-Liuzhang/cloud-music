@@ -47,6 +47,7 @@ function Singers(props: PropsFromRedux) {
     if (!singerList.size) {
       getHotSingerListDispatch();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -76,7 +77,7 @@ function Singers(props: PropsFromRedux) {
               category,
               alpha,
               category === "",
-              pageNumber + 1
+              pageNumber + 1,
             )
           }
           pullDownLoading={pullDownLoading}
@@ -112,7 +113,7 @@ const mapDispatchToProps = (dispatch: any) => ({
     category: string,
     alpha: string,
     hot: boolean,
-    count: number
+    count: number,
   ) {
     dispatch(actionTypes.changePullUpLoading(true));
     // TODO 改变页码：api报错是否有影响
@@ -141,5 +142,5 @@ type PropsFromRedux = ConnectedProps<typeof connector>;
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(React.memo(Singers));

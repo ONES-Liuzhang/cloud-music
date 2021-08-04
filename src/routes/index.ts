@@ -5,6 +5,7 @@ import Home from "../application/Home";
 import Recommend from "../application/Recommend";
 import Rank from "../application/Rank";
 import Singers from "../application/Singers";
+import TestView from "../application/TestView";
 
 const routes: RouteConfig[] = [
   {
@@ -27,6 +28,10 @@ const routes: RouteConfig[] = [
       {
         path: "/singers",
         component: Singers,
+      },
+      {
+        path: "/test",
+        component: TestView,
       },
     ],
   },

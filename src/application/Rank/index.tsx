@@ -16,6 +16,7 @@ function Rank(props: PropsFromRedux) {
 
   useEffect(() => {
     getRankListDispatch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderSong = (list: TracksList) => {
