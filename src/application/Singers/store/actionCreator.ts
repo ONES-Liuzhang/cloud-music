@@ -81,7 +81,7 @@ export const refreshMoreHotSingerList = () => {
 
 /** 第一次获取条件加载歌手 */
 export const getSingerList = (query: SingerListRequestParams) => {
-  return (dispatch: any) => {
+  return (dispatch: any, getState: any) => {
     const { category, alpha } = query;
     getSingerListRequest({
       category,
@@ -90,6 +90,10 @@ export const getSingerList = (query: SingerListRequestParams) => {
     }).then(
       (data) => {
         dispatch(changeSingerList(data.artists));
+        const singerList = getState()
+          .getIn(["singers", SingerStateKeys.SINGER_LIST])
+          .toJS();
+        console.log(singerList)
         dispatch(changeEnterLoading(false));
         dispatch(changePullDownLoading(false));
       },

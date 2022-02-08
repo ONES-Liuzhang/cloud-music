@@ -76,7 +76,7 @@ function Singers(props: PropsFromRedux) {
             pullUpRefreshDispatch(
               category,
               alpha,
-              category === "",
+              category === "" && alpha === "",
               pageNumber + 1,
             )
           }

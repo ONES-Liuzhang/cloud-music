@@ -19,7 +19,7 @@ export const getSingerListRequest = ({
   limit = 20,
 }: SingerListRequestParams) =>
   axiosInstance.get(
-    `/artist/list?cat=${category}&initial=${alpha.toLowerCase()}&offset=${count}&limit=${limit}`
+    `/artist/list?cat=${category}&initial=${alpha.toLowerCase()}&offset=${count * limit}&limit=${limit}`
   );
 
 /** 获取排行榜单 */
