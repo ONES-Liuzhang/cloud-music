@@ -7,6 +7,7 @@ export interface Debounce {
   (callback: (args: never) => unknown): unknown;
 }
 
+// TODO
 const useDebounce = (): Debounce => {
   const timeoutRef = useRef(0);
 

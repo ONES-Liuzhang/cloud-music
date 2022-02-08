@@ -1,15 +1,15 @@
 import React from "react";
 import { List, ListWapper, ListItem } from "./style";
 import { getCount } from "../../api/utils";
-import { RecommendListProps } from "../type";
 import LazyLoad from "react-lazyload";
-import { withRouter } from "react-router";
+import { useHistory, withRouter } from "react-router";
+import { RecommendListProps } from "../type";
 
 function RecommendList(props: RecommendListProps) {
   const { recommendList } = props;
-
+  const history = useHistory();
   const enterDetail = (id: number) => {
-    props.history.push(`/recommend/${id}`);
+    history.push(`/recommend/${id}`);
   };
 
   return (

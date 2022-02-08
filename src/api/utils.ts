@@ -11,6 +11,10 @@ export function getCount(count: number): string {
   }
 }
 
+export function getAlbumCreatorName(arr: Array<{ name: "string" }>) {
+  return arr.map((item) => item.name).join("/");
+}
+
 /** 防抖 */
 export function debounce(fn: any, duration = 300) {
   if (!fn) return noop;

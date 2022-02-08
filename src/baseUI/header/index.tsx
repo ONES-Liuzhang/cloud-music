@@ -5,6 +5,7 @@ import style from "../../assets/global-style";
 interface HeaderProps {
   title?: string;
   handleClick?: () => void;
+  isMarquee?: boolean;
 }
 
 const HeaderContainer = styled.div`
@@ -29,13 +30,13 @@ const HeaderContainer = styled.div`
 `;
 
 const Header = forwardRef((props: HeaderProps, ref) => {
-  const { title, handleClick } = props;
+  const { title, handleClick, isMarquee } = props;
   return (
     <HeaderContainer ref={ref}>
       <i className={`back iconfont`} onClick={handleClick}>
         &#xe655;
       </i>
-      <h1>{title}</h1>
+      {isMarquee ? <h1>{title}</h1> : <h1>{title}</h1>}
     </HeaderContainer>
   );
 });
@@ -43,6 +44,7 @@ const Header = forwardRef((props: HeaderProps, ref) => {
 Header.defaultProps = {
   title: "标题",
   handleClick: () => {},
+  isMarquee: false,
 };
 
 export default React.memo(Header);

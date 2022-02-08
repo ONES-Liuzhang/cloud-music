@@ -15,7 +15,7 @@ import useDebounce from "../../hooks/useDebounce";
 
 // Scroll.propTypes = {
 //   direction: PropTypes.oneOf(["vertical", "horizental"]), // 滚动方向
-//   click: PropTypes.bool, // 是否支持点击
+//   click: PropTypes.bool, // 是否支持点击
 //   refresh: PropTypes.bool, // 是否支持刷新
 //   onScroll: PropTypes.func, // 滚动事件
 //   pullUp: PropTypes.func, // 上拉加载逻辑
@@ -116,6 +116,7 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
     if (pullUp && bScroll) {
       // 滚动结束时
       bScroll.on("scrollEnd", () => {
+        console.log(bScroll.y, bScroll.maxScrollY)
         if (bScroll.y <= bScroll.maxScrollY + 100) {
           debounce(() => {
             pullUp();

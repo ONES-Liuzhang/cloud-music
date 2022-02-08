@@ -1,13 +1,13 @@
 import axios from "axios";
-const baseUrl = "http://localhost:3300";
-
+// const baseUrl = "http://localhost:3300";
+const baseUrl = "http://47.106.119.195:3000";
 const axiosInstance = axios.create({
   baseURL: baseUrl,
 });
 
 axiosInstance.interceptors.response.use(
   (res) => res.data,
-  (err) => console.log(err, "网络错误！")
+  (err) => console.log(err, "网络错误！"),
 );
 
 // 歌手种类
