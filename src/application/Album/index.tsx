@@ -1,108 +1,58 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Container, TopDesc, Menu, SongList, SongListItem } from "./style";
 import { CSSTransition } from "react-transition-group";
 import { RouteComponentProps } from "react-router";
-import Header from "../../baseUI/header";
+import Header, {HEADER_HEIGHT} from "../../baseUI/header";
 import Scroll from "../../baseUI/scroll";
-import { getAlbumCreatorName, getCount } from "../../api/utils";
+import { getAlbumCreatorName, getCount, isEmptyObj } from "../../api/utils";
 import { ScrollPosition } from "../../baseUI/type";
+import globalStyle from "../../assets/global-style";
+import { connect, ConnectedProps } from "react-redux";
+import { RootState } from "../../store/reducer";
+import { actionCreator as actionTypes } from "./store";
+import { AlbumData } from "./store/constants";
+import Loading from "../../baseUI/loading"
 
-function Album(props: RouteComponentProps) {
+type AlbumProps = RouteComponentProps<{id: string}>
+  & PropsFromRedux
+
+function Album(props: AlbumProps) {
   const [showStatus, setShowStatus] = useState(true);
   const headerRef = useRef<HTMLDivElement | undefined>();
+  const [title, setTitle] = useState("歌单")
   const [isMarquee, setMarquee] = useState(false);
+
+  const id = props.match.params.id
+  const { currentAlbum, enterLoading } = props
+  const { getCurrentAlbum } = props
+
   const handleClickBack = () => {
     setShowStatus(false);
   };
 
-  //mock 数据
-  const currentAlbum = {
-    creator: {
-      avatarUrl:
-        "http://p1.music.126.net/O9zV6jeawR43pfiK2JaVSw==/109951164232128905.jpg",
-      nickname: "浪里推舟",
-    },
-    coverImgUrl:
-      "http://p2.music.126.net/ecpXnH13-0QWpWQmqlR0gw==/109951164354856816.jpg",
-    subscribedCount: 2010711,
-    name: "听完就睡，耳机是天黑以后柔软的梦境",
-    tracks: [
-      {
-        name: "我真的受伤了",
-        ar: [{ name: "张学友" }, { name: "周华健" }],
-        al: {
-          name: "学友 热",
-        },
-      },
-      {
-        name: "我真的受伤了",
-        ar: [{ name: "张学友" }, { name: "周华健" }],
-        al: {
-          name: "学友 热",
-        },
-      },
-      {
-        name: "我真的受伤了",
-        ar: [{ name: "张学友" }, { name: "周华健" }],
-        al: {
-          name: "学友 热",
-        },
-      },
-      {
-        name: "我真的受伤了",
-        ar: [{ name: "张学友" }, { name: "周华健" }],
-        al: {
-          name: "学友 热",
-        },
-      },
-      {
-        name: "我真的受伤了",
-        ar: [{ name: "张学友" }, { name: "周华健" }],
-        al: {
-          name: "学友 热",
-        },
-      },
-      {
-        name: "我真的受伤了",
-        ar: [{ name: "张学友" }, { name: "周华健" }],
-        al: {
-          name: "学友 热",
-        },
-      },
-      {
-        name: "我真的受伤了",
-        ar: [{ name: "张学友" }, { name: "周华健" }],
-        al: {
-          name: "学友 热",
-        },
-      },
-      {
-        name: "我真的受伤了",
-        ar: [{ name: "张学友" }, { name: "周华健" }],
-        al: {
-          name: "学友 热",
-        },
-      },
-      {
-        name: "我真的受伤了",
-        ar: [{ name: "张学友" }, { name: "周华健" }],
-        al: {
-          name: "学友 热",
-        },
-      },
-      {
-        name: "我真的受伤了",
-        ar: [{ name: "张学友" }, { name: "周华健" }],
-        al: {
-          name: "学友 热",
-        },
-      },
-    ],
+  const currentAlbumJs = currentAlbum.toJS()
+
+  useEffect(() => {
+    getCurrentAlbum(id)
+  }, [getCurrentAlbum, id])
+
+  const handleScroll = (pos: ScrollPosition) => {
+      let minScrollY = -(HEADER_HEIGHT + 5)
+      let headerDom = (headerRef.current) as HTMLElement
+      let percent = Math.abs(pos.y / minScrollY)
+      if(pos.y < minScrollY) {
+        headerDom.style.backgroundColor = globalStyle['theme-color']
+        headerDom.style.opacity = Math.min((percent - 1) / 2, 1) + ''
+        setTitle(currentAlbumJs.name)
+        setMarquee(true)
+      } else {
+        headerDom.style.backgroundColor = ''
+        headerDom.style.opacity = '1'
+        setTitle("歌单")
+        setMarquee(false)
+      }
   };
 
-  const handleScroll = (pos: ScrollPosition) => {};
-
-  // TODO
   const renderSongList = (list: any) => {
     return (
       <SongList>
@@ -117,7 +67,7 @@ function Album(props: RouteComponentProps) {
           <div className="add_list">
             <i className="iconfont">&#xe62d;</i>
             <span>
-              &nbsp;收 藏<span>({getCount(currentAlbum.subscribedCount)})</span>
+              &nbsp;收 藏<span>({getCount(currentAlbumJs.subscribedCount)})</span>
             </span>
           </div>
         </div>
@@ -148,41 +98,42 @@ function Album(props: RouteComponentProps) {
       onExited={props.history.goBack}
     >
       <Container>
+        {enterLoading ? <Loading /> : null}
         <Header
           ref={headerRef}
-          title={"返回"}
+          title={title}
           handleClick={handleClickBack}
           isMarquee={isMarquee}
         />
-        <Scroll>
+        {!isEmptyObj(currentAlbumJs) ? <Scroll onScroll={handleScroll}>
           <div>
-            <TopDesc background={currentAlbum.coverImgUrl}>
+            <TopDesc background={currentAlbumJs.coverImgUrl}>
               <div className="background">
                 <div className="filter"></div>
               </div>
               <div className="img_wrapper">
                 <div className="decorate"></div>
                 <img
-                  src={currentAlbum.coverImgUrl + "?param=300x300"}
+                  src={currentAlbumJs.coverImgUrl + "?param=300x300"}
                   height="100%"
                   width="100%"
                   alt=""
                 />
                 <div className="play_count">
                   <i className="iconfont play">&#xe885;</i>
-                  <span>{getCount(currentAlbum.subscribedCount)}</span>
+                  <span>{getCount(currentAlbumJs.subscribedCount)}</span>
                 </div>
               </div>
               <div className="desc_wrapper">
-                <div className="title">{currentAlbum.name}</div>
+                <div className="title">{currentAlbumJs.name}</div>
                 <div className="person">
                   <div className="avatar">
                     <img
-                      src={currentAlbum.creator.avatarUrl + "?param=30x30"}
+                      src={currentAlbumJs.creator.avatarUrl + "?param=30x30"}
                       alt=""
                     />
                   </div>
-                  <div className="name">{currentAlbum.creator.nickname}</div>
+                  <div className="name">{currentAlbumJs.creator.nickname}</div>
                 </div>
               </div>
             </TopDesc>
@@ -203,12 +154,27 @@ function Album(props: RouteComponentProps) {
                 <i className="iconfont">&#xe606;</i>更多
               </div>
             </Menu>
-            {renderSongList(currentAlbum.tracks)}
+            {renderSongList(currentAlbumJs.tracks)}
           </div>
-        </Scroll>
+        </Scroll> : null}
       </Container>
     </CSSTransition>
   );
 }
 
-export default React.memo(Album);
+const mapStateToProps = (state: RootState) => ({
+  currentAlbum: state.getIn(['album', 'currentAlbum']) as ObjWithImmutable<AlbumData>,
+  enterLoading: state.getIn(['album', 'enterLoading']) as boolean
+})
+
+const mapDispatchToProps = (dispatch: any) => ({
+  getCurrentAlbum(id: string) {
+    dispatch(actionTypes.getAlbumDetail(id))
+  }
+})
+
+const connector = connect(mapStateToProps, mapDispatchToProps)
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(React.memo(Album));

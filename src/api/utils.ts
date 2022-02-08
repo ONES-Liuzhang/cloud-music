@@ -30,3 +30,9 @@ export function debounce(fn: any, duration = 300) {
     startTime = currTime;
   };
 }
+
+export function isEmptyObj(obj: any): boolean {
+  if(!obj || Object.keys(obj).length === 0) return true
+
+  return false
+}

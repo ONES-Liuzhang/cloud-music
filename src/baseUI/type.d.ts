@@ -10,8 +10,8 @@ export interface ScrollProps {
   direction?: Direction;
   click?: boolean;
   refresh?: boolean;
-  onScroll?: null | ((pos?: ScrollPosition) => void);
-  pullUp?: null | ((pos?: ScrollPosition) => void);
+  onScroll?: null | ((pos: ScrollPosition) => void);
+  pullUp?: null | ((po?: ScrollPosition) => void);
   pullDown?: null | ((pos?: ScrollPosition, duration?: number) => void);
   pullUpLoading?: boolean;
   pullDownLoading?: boolean;

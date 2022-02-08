@@ -8,11 +8,13 @@ interface HeaderProps {
   isMarquee?: boolean;
 }
 
+export const HEADER_HEIGHT = 40
+
 const HeaderContainer = styled.div`
   position: fixed;
   padding: 5px 10px;
   padding-top: 0;
-  height: 40px;
+  height: ${HEADER_HEIGHT}px;
   width: 100%;
   z-index: 100;
   display: flex;
@@ -29,6 +31,26 @@ const HeaderContainer = styled.div`
   }
 `;
 
+// 走马灯动画
+const Marquee = styled.div`
+  width: 100%; 
+  height: 35px; 
+  overflow: hidden; 
+  position: relative; 
+  white-space: nowrap; 
+ .text { 
+   position: absolute; 
+   animation: marquee 10s linear infinite; 
+  } 
+  @keyframes marquee { 
+    from { 
+      transform: translateX(100%); 
+    } 
+    to { 
+      transform: translateX(-100%); 
+    }
+`
+
 const Header = forwardRef((props: HeaderProps, ref) => {
   const { title, handleClick, isMarquee } = props;
   return (
@@ -36,7 +58,7 @@ const Header = forwardRef((props: HeaderProps, ref) => {
       <i className={`back iconfont`} onClick={handleClick}>
         &#xe655;
       </i>
-      {isMarquee ? <h1>{title}</h1> : <h1>{title}</h1>}
+      {isMarquee ? <Marquee><span className="text">{title}</span></Marquee> : <h1>{title}</h1>}
     </HeaderContainer>
   );
 });
