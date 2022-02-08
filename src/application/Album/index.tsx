@@ -16,6 +16,7 @@ import Loading from "../../baseUI/loading"
 type AlbumProps = RouteComponentProps<{id: string}>
   & PropsFromRedux
 
+// TODO 代码拆解优化
 function Album(props: AlbumProps) {
   const [showStatus, setShowStatus] = useState(true);
   const headerRef = useRef<HTMLDivElement | undefined>();

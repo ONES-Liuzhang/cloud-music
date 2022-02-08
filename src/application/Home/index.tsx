@@ -1,11 +1,13 @@
 import React from "react";
-import { renderRoutes } from "react-router-config";
+import { renderRoutes, RouteConfig } from "react-router-config";
 import { Top, Tab, TabItem } from "./style";
 import { NavLink } from "react-router-dom";
-import { PropsWithRoute } from "../../types";
-import { HomeProps } from "../type";
 
-function Home(props: PropsWithRoute<HomeProps>) {
+interface HomeProps {
+  route?: RouteConfig;
+}
+
+function Home(props: HomeProps) {
   const { route } = props;
   return (
     <div className="home">
