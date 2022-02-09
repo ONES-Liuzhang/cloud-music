@@ -109,7 +109,7 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
         bScroll.off("touchEnd");
       };
     }
-  }, [pullDown, bScroll]);
+  }, [pullDown, bScroll, debounce]);
 
   // 进行上拉到底的判断
   useEffect(() => {
@@ -127,7 +127,7 @@ const Scroll = forwardRef<ReactElement, ScrollProps>((props, ref) => {
         bScroll.off("scrollEnd");
       };
     }
-  }, [pullUp, bScroll]);
+  }, [pullUp, bScroll, debounce]);
 
   // TODO 类型问题
   useImperativeHandle<any, any>(ref, () => ({
