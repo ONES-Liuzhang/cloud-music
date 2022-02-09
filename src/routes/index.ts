@@ -5,6 +5,7 @@ import Home from "../application/Home";
 import Recommend from "../application/Recommend";
 import Rank from "../application/Rank";
 import Singers from "../application/Singers";
+import Singer from "../application/Singer";
 import TestView from "../application/TestView";
 import Album from "../application/Album";
 
@@ -32,10 +33,22 @@ const routes: RouteConfig[] = [
       {
         path: "/rank",
         component: Rank,
+        routes: [
+          {
+            path: "/rank/:id",
+            component: Album
+          }
+        ]
       },
       {
         path: "/singers",
         component: Singers,
+        routes: [
+            {
+            path: "/singers/:id",
+            component: Singer
+          }
+        ]
       },
       {
         path: "/test",

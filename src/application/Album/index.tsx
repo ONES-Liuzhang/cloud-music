@@ -17,13 +17,14 @@ type AlbumProps = RouteComponentProps<{id: string}>
   & PropsFromRedux
 
 // TODO 代码拆解优化
+// TODO 切换的时候不顺滑，比如关掉一个再切换到另一个 会闪一下屏
 function Album(props: AlbumProps) {
   const [showStatus, setShowStatus] = useState(true);
   const headerRef = useRef<HTMLDivElement | undefined>();
   const [title, setTitle] = useState("歌单")
   const [isMarquee, setMarquee] = useState(false);
 
-  const id = props.match.params.id
+  const id = +props.match.params.id
   const { currentAlbum, enterLoading } = props
   const { getCurrentAlbum } = props
 
@@ -169,7 +170,7 @@ const mapStateToProps = (state: RootState) => ({
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
-  getCurrentAlbum(id: string) {
+  getCurrentAlbum(id: number) {
     dispatch(actionTypes.getAlbumDetail(id))
   }
 })

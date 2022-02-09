@@ -26,4 +26,7 @@ export const getSingerListRequest = ({
 export const getRankListRequest = () => axiosInstance.get("/toplist/detail");
 
 /** 根据id 获取歌单 */
-export const getAlbumDetailRequest = (id: string) => axiosInstance.get(`/playlist/detail?id=${id}`)
+export const getAlbumDetailRequest = (id: number) => axiosInstance.get(`/playlist/detail?id=${id}`)
+
+/** 获取歌手 */
+export const getSingerRequest = (id: number) => axiosInstance.get(`/artists?id=${id}`)

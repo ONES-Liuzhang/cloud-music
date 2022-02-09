@@ -1,4 +1,5 @@
 import { RouteConfig } from "react-router-config";
+import { RouteComponentProps } from "react-router";
 
 declare global {
   interface Window {
@@ -6,7 +7,7 @@ declare global {
   }
 }
 
-export type PropsWithRoute<P> = P & {
+export type PropsWithRoute<P, T = unknown> = P & RouteComponentProps<T> & {
   route?: RouteConfig | undefined;
 };
 

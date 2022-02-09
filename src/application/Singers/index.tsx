@@ -11,8 +11,10 @@ import Loading from "../../baseUI/loading";
 import { forceCheck } from "react-lazyload";
 import { CategoryContext } from "./data";
 import { RootState } from "../../store/reducer";
+import { PropsWithRoute } from "../../types";
+import { renderRoutes } from "react-router-config";
 
-function Singers(props: PropsFromRedux) {
+function Singers(props: PropsWithRoute<PropsFromRedux>) {
   const { data, dispatch } = useContext(CategoryContext);
   const { category, alpha } = data.toJS();
 
@@ -87,6 +89,7 @@ function Singers(props: PropsFromRedux) {
         </Scroll>
       </ScrollContainer>
       {enterLoading && <Loading></Loading>}
+      {renderRoutes(props.route?.routes)}
     </SingerContainer>
   );
 }

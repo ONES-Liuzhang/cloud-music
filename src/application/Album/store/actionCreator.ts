@@ -13,7 +13,7 @@ export const changeEnterLoading = (data: boolean): AlbumActions => ({
   data: data
 })
 
-export const getAlbumDetail = (id: string) => {
+export const getAlbumDetail = (id: number) => {
   return (dispatch: Dispatch<AlbumActions>) => {
     dispatch(changeEnterLoading(true))
 
