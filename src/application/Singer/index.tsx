@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useCallback, Dispatch } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { CSSTransition } from 'react-transition-group'
 import { Container, ImgWrapper, CollectButton, SongListWrapper, BgLayer } from './style'
 import Header, { HEADER_HEIGHT } from "../../baseUI/header"
@@ -47,91 +47,6 @@ const Singer = function Singer(props: PropsWithRoute<PropsWithRedux, {id: number
     
   }, [])
 
-  // mock 数据
-  // const artist = {
-  //   picUrl: "https://p2.music.126.net/W__FCWFiyq0JdPtuLJoZVQ==/109951163765026271.jpg",
-  //   name: "薛之谦",
-  //   hotSongs: [
-  //     {
-  //       id: 123,
-  //       name: "我好像在哪见过你",
-  //       ar: [{name: "薛之谦"}],
-  //       al: {
-  //         name: "薛之谦专辑"
-  //       }
-  //     },
-  //     {
-  //       id: 123,
-  //       name: "我好像在哪见过你",
-  //       ar: [{name: "薛之谦"}],
-  //       al: {
-  //         name: "薛之谦专辑"
-  //       }
-  //     },
-  //     {
-  //       id: 123,
-  //       name: "我好像在哪见过你",
-  //       ar: [{name: "薛之谦"}],
-  //       al: {
-  //         name: "薛之谦专辑"
-  //       }
-  //     },
-  //     {
-  //       id: 123,
-  //       name: "我好像在哪见过你",
-  //       ar: [{name: "薛之谦"}],
-  //       al: {
-  //         name: "薛之谦专辑"
-  //       }
-  //     },{
-  //       id: 123,
-  //       name: "我好像在哪见过你",
-  //       ar: [{name: "薛之谦"}],
-  //       al: {
-  //         name: "薛之谦专辑"
-  //       }
-  //     },
-  //     {
-  //       id: 123,
-  //       name: "我好像在哪见过你",
-  //       ar: [{name: "薛之谦"}],
-  //       al: {
-  //         name: "薛之谦专辑"
-  //       }
-  //     },{
-  //       id: 123,
-  //       name: "我好像在哪见过你",
-  //       ar: [{name: "薛之谦"}],
-  //       al: {
-  //         name: "薛之谦专辑"
-  //       }
-  //     },
-  //     {
-  //       id: 123,
-  //       name: "我好像在哪见过你",
-  //       ar: [{name: "薛之谦"}],
-  //       al: {
-  //         name: "薛之谦专辑"
-  //       }
-  //     },{
-  //       id: 123,
-  //       name: "我好像在哪见过你",
-  //       ar: [{name: "薛之谦"}],
-  //       al: {
-  //         name: "薛之谦专辑"
-  //       }
-  //     },
-  //     {
-  //       id: 123,
-  //       name: "我好像在哪见过你",
-  //       ar: [{name: "薛之谦"}],
-  //       al: {
-  //         name: "薛之谦专辑"
-  //       }
-  //     },
-  //   ]
-  // }
-  
   const setShowStatusFalse = useCallback(() => {
     setShowState(false)
   }, [setShowState])
@@ -141,7 +56,6 @@ const Singer = function Singer(props: PropsWithRoute<PropsWithRedux, {id: number
     const imgEl = imgWrapper.current as HTMLElement
     const btnEl = btnWrapper.current as HTMLElement
     const layerEl = layerWrapper.current as HTMLElement
-    const headerEl = headerWrapper.current as HTMLElement
     const newY = pos.y
     const minScrollY = OFFSET + HEADER_HEIGHT - initialHeight.current 
 

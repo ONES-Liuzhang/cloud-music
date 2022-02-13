@@ -7,7 +7,6 @@ import {
   SingerInfo,
   SingerStateKeys,
   SingerActions,
-  SingerList,
 } from "./constans";
 import { fromJS } from "immutable";
 

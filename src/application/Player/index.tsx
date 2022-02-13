@@ -29,13 +29,13 @@ const Player = function Player (props: PropsWithRedux) {
 }
 
 const mapStateToProps = (state: any) => ({
-  playing: state.getIn('player', 'playing'),
-  fullScreen: state.getIn('player', 'fullScreen'),
-  playList: state.getIn('player', 'playList'),
-  enqueue: state.getIn('player', 'enqueue'),
-  mode: state.getIn('player', 'mode'),
-  currIndex: state.getIn('player', 'currIndex'),
-  currSong: state.getIn('player', 'currSong'),
+  playing: state.getIn(['player', 'playing']),
+  fullScreen: state.getIn(['player', 'fullScreen']),
+  playList: state.getIn(['player', 'playList']),
+  enqueue: state.getIn(['player', 'enqueue']),
+  mode: state.getIn(['player', 'mode']),
+  currIndex: state.getIn(['player', 'currIndex']),
+  currSong: state.getIn(['player', 'currSong']),
 })
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -63,5 +63,5 @@ const connector = connect(mapStateToProps, mapDispatchToProps)
 
 type PropsWithRedux = ConnectedProps<typeof connector>
 
-export default React.memo(Player)
+export default connector(React.memo(Player))
 

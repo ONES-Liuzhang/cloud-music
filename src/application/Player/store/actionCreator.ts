@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 import { SongInfo } from '../../../types/business';
-import { Actions, PlayList, State, PlayMode } from './constans';
+import { Actions, PlayList, PlayMode } from './constans';
 
 export const changePlaying = (data: boolean): Actions => ({
   type: 'player/set_playing',
