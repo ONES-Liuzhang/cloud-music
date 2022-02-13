@@ -1,4 +1,4 @@
-import { IArtists, IAlbum } from './../../../types/business.d';
+import { SongInfo } from './../../../types/business.d';
 export interface ArtistInfo {
   picUrl: string,
   name: string,
@@ -6,14 +6,6 @@ export interface ArtistInfo {
 }
 
 export type HotSongs = Array<SongInfo>
-
-interface SongInfo {
-  id: number,
-  name: string,
-  ar: IArtists,
-  al: IAlbum,
-  [propsName: string]: any
-}
 
 export type SingerActions = 
   | {

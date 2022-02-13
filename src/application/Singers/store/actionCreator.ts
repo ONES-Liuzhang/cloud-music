@@ -17,7 +17,7 @@ interface ActionCreators {
 
 const changeSingerList: ActionCreators = (data: SingerInfo) => ({
   type: "singers/change_singer_list",
-  data: fromJS(data) as ObjWithImmutable<SingerList>,
+  data: fromJS(data),
 });
 
 export const changeEnterLoading: ActionCreators = (loading: boolean) => ({

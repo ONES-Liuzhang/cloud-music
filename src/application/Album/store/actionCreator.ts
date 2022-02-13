@@ -5,7 +5,7 @@ import { Dispatch } from 'redux';
 
 export const changeAlbumData = (data: AlbumData): AlbumActions => ({
   type: "album/change_current_album",
-  data: fromJS(data) as ObjWithImmutable<AlbumData>
+  data: fromJS(data)
 })
 
 export const changeEnterLoading = (data: boolean): AlbumActions => ({

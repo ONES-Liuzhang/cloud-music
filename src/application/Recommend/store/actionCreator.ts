@@ -8,12 +8,12 @@ import { Dispatch } from "redux";
 
 export const changeBannerList = (data: BannerList): RecommendActions => ({
   type: "recommend/change_banner",
-  data: fromJS(data) as ObjWithImmutable<BannerList>,
+  data: fromJS(data),
 });
 
 export const changeRecommendList = (data: RecommendList): RecommendActions => ({
   type: "recommend/change_recommend_list",
-  data: fromJS(data) as ObjWithImmutable<RecommendList>,
+  data: fromJS(data),
 });
 
 export const changeEnterLoader = (data: boolean): RecommendActions => ({

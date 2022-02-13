@@ -5,12 +5,12 @@ import { getSingerRequest } from '../../../api/request'
 
 const changeArtist = (data: ArtistInfo): SingerActions => ({
   type: "singer/change_singer",
-  data: fromJS(data) as ObjWithImmutable<ArtistInfo>
+  data: fromJS(data),
 })
 
 const changeHotSongs = (data: HotSongs): SingerActions => ({
   type: "singer/change_hotsong_list",
-  data: fromJS(data) as ObjWithImmutable<HotSongs>
+  data: fromJS(data),
 })
 
 

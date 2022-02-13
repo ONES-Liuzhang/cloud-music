@@ -12,3 +12,14 @@ interface ObjWithImmutable<P> {
   // ) => P[K1][K2] | ObjWithImmutable<P[K1][K2]>;
   size: number;
 }
+
+declare module "immutable" {
+  export function fromJS(
+    jsValue: T,
+    reviver?: (
+      key: string | number,
+      sequence: Collection.Keyed<string, unknown> | Collection.Indexed<unknown>,
+      path?: Array<string | number>
+    ) => unknown
+  ): ObjWithImmutable<T>;
+}

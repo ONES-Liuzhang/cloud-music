@@ -49,7 +49,7 @@ export interface SingerInfo {
 
 export type SingerList = Array<SingerInfo>;
 
-export interface SingerStateJS {
+export interface SingerStateJs {
   [SingerStateKeys.SINGER_LIST]: ObjWithImmutable<SingerList>;
   [SingerStateKeys.ENTER_LOADING]: boolean;
   [SingerStateKeys.PULL_UP_LOADING]: boolean;
@@ -57,4 +57,4 @@ export interface SingerStateJS {
   [SingerStateKeys.PAGE_NUMBER]: number;
 }
 
-export type SingerState = ObjWithImmutable<SingerStateJS>;
+export type SingerState = ObjWithImmutable<SingerStateJs>;
